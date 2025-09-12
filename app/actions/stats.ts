@@ -10,15 +10,15 @@ type DashStat = {
   today: Stats;
 };
 export type Stats = {
-  count: number;
+  count?: number;
   statusBreakdown: {
     success: Status;
     failed: Status;
     pending: Status;
   };
-  successRate: number;
+  successRate?: number;
 };
-type Status = {
+export type Status = {
   count: number;
   totalAmount: number;
 };

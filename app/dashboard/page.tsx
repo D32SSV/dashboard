@@ -6,6 +6,7 @@ import { Stats, getStats } from "../actions/stats";
 import { useAuth } from "../context/AuthContext";
 import DashboardCard from "../components/reusable/dashboard-cards/DashboardCard";
 import Loader from "../components/reusable/Loader";
+import Chart from "../components/reusable/areaChart/Chart";
 
 type StatusKey = "success" | "failed" | "pending" | "successRate" | "count";
 
@@ -125,7 +126,15 @@ const DashboardPage = () => {
     <ProtectedRoute>
       <div className="p-4">
         {renderStats(todayStats, "Today's Stats")}
+        <div className="flex flex-wrap items-start justify-center md:justify-start flex-col sm:flex-row gap-8 p-4 mb-8">
+          <Chart data={todayStats} metric="count" />
+          <Chart data={todayStats} metric="totalAmount" />
+        </div>
         {renderStats(totalStats, "Total Stats")}
+        <div className="flex flex-wrap items-start justify-center md:justify-start flex-col sm:flex-row gap-8 p-4">
+          <Chart data={totalStats} metric="count" />
+          <Chart data={totalStats} metric="totalAmount" />
+        </div>
       </div>
     </ProtectedRoute>
   );
