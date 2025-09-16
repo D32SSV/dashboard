@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "@/app/context/AuthContext";
 
 const navLinks = [
-  { name: "Profile", href: "/dashboard/profile" },
+  { name: "Profile", href: "/profile" },
   { name: "Track Transactions", href: "/dashboard/track-txn" },
   { name: "Logout", href: "/" },
   //   { name: 'Contact', href: '/contact' },
@@ -19,13 +19,21 @@ const Navbar: React.FC = () => {
   const pathname = usePathname();
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  const handleOutSideClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      setIsOpen(false);
+    }
+  };
 
   return (
-    <nav className="bg-blue-900 shadow-md sticky top-0 z-50">
+    <nav className="bg-blue-900 shadow-md top-0 z-50 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
-          <div className="flex-shrink-0 text-xl font-bold text-blue-300">
+          <div
+            className="flex-shrink-0 text-xl font-bold text-blue-300"
+            onClick={() => setIsOpen(false)}
+          >
             <Link href="/dashboard">Dashboard </Link>
             <small className="text-xs">{userName}</small>
           </div>
@@ -48,7 +56,7 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="md:hidden z-10">
             <button
               onClick={toggleMenu}
               type="button"
@@ -91,21 +99,29 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="md:hidden bg-blue-900 shadow-md px-4 pt-2 pb-4 space-y-2">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className={`block text-base hover:text-blue-300 transition-colors ${
-                pathname === link.href
-                  ? "text-blue-300 font-medium"
-                  : "text-gray-400"
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
+        <div
+          className="md:hidden fixed inset-0 -z-60"
+          onClick={handleOutSideClick}
+        >
+          <div
+            className="bg-blue-900 shadow-md px-4 pt-2 pb-4 space-y-2 absolute top-16 left-0 w-full z-50"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+          >
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className={`block text-base hover:text-blue-300 transition-colors ${
+                  pathname === link.href
+                    ? "text-blue-300 font-medium"
+                    : "text-gray-400"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
         </div>
       )}
     </nav>

@@ -89,6 +89,9 @@ input:-webkit-autofill {
     @apply font-light dark:bg-violet-900 bg-blue-800 w-full max-w-sm focus:outline-none md:text-[20px]/8  rounded-md px-1 pt-[0.8rem] pb-[0.4rem]  placeholder-crypto_violet dark:placeholder-blue-800;
   }
   .statusCls {
-    @apply font-light dark:bg-violet-900 bg-blue-800 w-full max-w-sm focus:outline-none md:text-[20px]/8 rounded-md px-1 pt-[0.8rem] pb-[0.4rem] text-crypto_violet dark:text-blue-800 capitalize
+    @apply font-light dark:bg-violet-900 bg-blue-800 w-full max-w-sm focus:outline-none md:text-[20px]/8 rounded-md px-1 pt-[0.8rem] pb-[0.4rem] text-crypto_violet dark:text-blue-800 capitalize;
+  }
+  .btn-hover-effect:hover {
+    @apply bg-gray-500 shadow-lg text-black;
   }
 }

@@ -28,7 +28,7 @@ const Chart = ({ data, metric }: ChartProps) => {
 
   return (
     <div className="h-64 w-full md:w-1/2 max-w-md border border-dashed rounded-2xl flex flex-col">
-      <p className="capitalize px-4 pt-2 text-xl font-semibold">
+      <p className="capitalize px-4 pt-2 text-xl font-semibold text-gray-400">
         {metric === "totalAmount" ? "Amount" : metric} of Transactions
       </p>
 

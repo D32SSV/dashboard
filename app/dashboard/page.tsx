@@ -76,7 +76,7 @@ const DashboardPage = () => {
   const [todayStats, setTodayStats] = useState<Stats | null>(null);
   const [totalStats, setTotalStats] = useState<Stats | null>(null);
   const [error, setError] = useState<string>("");
-  const [isLoadig, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { token } = useAuth();
 
   useEffect(() => {
@@ -111,7 +111,7 @@ const DashboardPage = () => {
     );
   }
 
-  if (isLoadig) {
+  if (isLoading) {
     return (
       <ProtectedRoute>
         <div className="w-full h-[80vh] flex items-center justify-center flex-col gap-4">
