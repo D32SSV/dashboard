@@ -2,8 +2,10 @@
 import React, { useState } from "react";
 import SearchById from "./SearchById";
 import SearchByFilter from "./SearchByFilter";
+import { useAuth } from "@/app/context/AuthContext";
 
 const TxnTracking = () => {
+  const { token } = useAuth();
   const [isSearchByIdOpen, setIsSearchByIdOpen] = useState<boolean>(false);
   const [isSearchByFilterOpen, setIsSearchByFilterOpen] =
     useState<boolean>(true);
@@ -19,7 +21,7 @@ const TxnTracking = () => {
 
   return (
     <div className="outer">
-      <div className="flex items-center justify-center mm:absolute gap-8 mt-2 mm:z-[1] bg-pink-400 dark:bg-sl_violet rounded px-4 pt-1 shadow shadow-pink-800 dark:shadow-violet-300">
+      <div className="flex items-center justify-center mm:absolute gap-8 mt-2 mm:z-[1] bg-gray-800 rounded px-4 pt-1 shadow shadow-gray-500 dark:shadow-violet-300">
         <label className="cursor-pointer space-x-1">
           <input
             type="checkbox"
@@ -27,7 +29,7 @@ const TxnTracking = () => {
             onChange={toggleSearchById}
             className=""
           />
-          <span className="text-md font-normal text-text_violet">
+          <span className="text-md font-normal text-gray-400">
             Search By Id
           </span>
         </label>
@@ -38,7 +40,7 @@ const TxnTracking = () => {
             onChange={toggleSearchByFilter}
             className=""
           />
-          <span className="text-md font-normal text-text_violet">
+          <span className="text-md font-normal text-gray-400">
             Search By Filter
           </span>
         </label>
@@ -50,9 +52,9 @@ const TxnTracking = () => {
         ? "opacity-100 scale-100 pointer-events-auto"
         : "opacity-0 scale-95 pointer-events-none hidden"
     } shadow
-    shadow-pink-500 dark:shadow-crypto_violet rounded relative top-11`}
+    shadow-gray-500 dark:shadow-crypto_violet rounded relative top-11`}
       >
-        <SearchByFilter />
+        {/* <SearchByFilter /> */}
       </div>
       <div
         className={` mx-1 transition-all duration-300 ease-in-out transform 
@@ -61,9 +63,9 @@ const TxnTracking = () => {
         ? "opacity-100 scale-100 pointer-events-auto"
         : "opacity-0 scale-95 pointer-events-none hidden"
     } shadow
-    shadow-pink-500 dark:shadow-crypto_violet rounded relative top-11`}
+    shadow-gray-500 dark:shadow-crypto_violet rounded relative top-11`}
       >
-        <SearchById />
+        <SearchById token={token} />
       </div>
     </div>
   );

@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-// import { getFilteredTxns } from "../../../api/txnApi";
 import Loader from "../reusable/Loader";
-import { useAuth } from "@/app/context/AuthContext";
 
-const SearchByFilter = () => {
-  const { id, token, data } = useAuth();
+const SearchByFilter = ({ token }: { token: string }) => {
   const [filters, setFilters] = useState({
     merchant: "",
-    processor: "",
     limit: "",
     startDate: "",
     endDate: "",
@@ -57,7 +53,6 @@ const SearchByFilter = () => {
     } finally {
       setFilters({
         merchant: "",
-        processor: "",
         limit: "",
         startDate: "",
         endDate: "",

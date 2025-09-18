@@ -1,8 +1,9 @@
+import TxnTracking from '@/app/components/txn/Transaction'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>pTXNTXNDSKFNLSDNage</div>
+    <div><TxnTracking/></div>
   )
 }
 

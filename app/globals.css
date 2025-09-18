@@ -72,11 +72,11 @@ input:-webkit-autofill {
     @apply overflow-auto px-2 h-[calc(100vh-7rem)];
   }
   .inverseTheme {
-    @apply text-blue-800 dark:text-crypto_violet;
+    @apply text-gray-300 dark:text-crypto_violet;
   }
 
   .inverseBtn {
-    @apply bg-blue-800 text-blue-800 dark:bg-lavendar dark:text-sdl;
+    @apply bg-gray-800 text-gray-300 dark:bg-lavendar dark:text-sdl;
   }
   .children-placeholder-capitalize * {
     @apply placeholder:capitalize;

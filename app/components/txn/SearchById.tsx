@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
-// import { getTxnById } from "../../../api/txnApi";
 import { txnDetailsToShow } from "../../utils/txnDetailsToShow";
 import CopyJsonButton from "../reusable/Tooltip";
 import Loader from "../reusable/Loader";
+import { searchById } from "@/app/actions/txnData";
 
-const SearchById = () => {
+const SearchById = ({ token }: { token: string | null }) => {
   const [txnId, setTxnId] = useState<string>("");
   const [txnData, setTxnData] = useState(null);
   const [error, setError] = useState<string>("");
@@ -22,28 +22,22 @@ const SearchById = () => {
     }
 
     setIsLoading(true);
+    setError("");
 
-    try {
-      return
-      const response = await getTxnById(id, txnId, token);
-      if (!response.success) throw new Error("Transaction not found");
-      else {
-        setError("");
-        let data = response.data.txn;
-        if (response.data?.extraDetails) {
-          data = { data, extraDetails: response.data?.extraDetails };
-        }
-        setTxnData(data);
-      }
-    } catch (err) {
-      if (err instanceof Error) setError(err.message);
-      else {
-        setError("Something went wrong.");
-      }
-    } finally {
-      setIsLoading(false);
+    const response = await searchById(token, txnId);
+    if (response.success) {
+      setError("");
+      const { txn } = response.data;
+      console.log(txn);
+
+      setTxnData(txn);
+    } else {
+      setError(response.message);
     }
+
+    setIsLoading(false);
   };
+
   // console.table((txnData));
   return (
     <section className="px-2 py-2">
@@ -69,7 +63,7 @@ const SearchById = () => {
             name="txnId"
             value={txnId}
             onChange={(e) => setTxnId(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md  focus:outline-none focus:ring-0 focus:border-none bg-pink-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 border-pink-600 placeholder:text-pink-500"
+            className="w-full px-4 py-2 border rounded-md  focus:outline-none focus:ring-0 focus:border-none bg-gray-800 text-gray-300 dark:border-gray-600 border-sky-950"
             required
             aria-required="true"
             aria-describedby="txnId-desc"
@@ -79,7 +73,7 @@ const SearchById = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="px-5 py-2 w-max inverseBtn rounded hover:bg-pink-300 dark:hover:bg-violet-400  focus:outline-none focus:ring-0 focus:border-none disabled:opacity-50"
+            className="px-5 py-2 w-max inverseBtn rounded hover:bg-gray-600 active:scale-95  focus:outline-none focus:ring-0 focus:border-none disabled:opacity-50"
           >
             {isLoading ? <Loader /> : "Search"}
           </button>
@@ -93,22 +87,22 @@ const SearchById = () => {
       )}
 
       {txnData && (
-        <article className="border px-[5px] py-4 rounded-md shadow-sm inverseTheme max-h-max break-words">
+        <article className="px-[5px] py-4 rounded-md shadow-sm inverseTheme max-h-max break-words">
           <div className="flex flex-col mm:flex-row gap-4 items-start justify-center w-max mb-4">
-            <h2 className="text-lg font-bold align-middle">
+            <h2 className="text-xl font-bold align-middle">
               Transaction Details
             </h2>
             <CopyJsonButton data={txnData} />
           </div>
 
           <dl className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-4 max-[325px]:grid-cols-1 max-[325px]:gap-x-28 ">
-            {Object.entries(txnDetailsToShow(txnData?.data)).map(
+            {Object.entries(txnDetailsToShow(txnData)).map(
               ([label, value]) => (
                 <div key={label}>
-                  <dt className="font-normal text-xl text-gray-700 dark:text-gray-200">
+                  <dt className="font-normal text-lg text-gray-300">
                     {label}
                   </dt>
-                  <dd className="text-gray-900 font-normal capitalize dark:text-white text-sm">
+                  <dd className="font-normal capitalize text-gray-200 text-sm">
                     {value ?? "N/A"}
                   </dd>
                 </div>
@@ -120,5 +114,4 @@ const SearchById = () => {
     </section>
   );
 };
-
 export default SearchById;
