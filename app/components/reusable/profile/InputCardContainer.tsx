@@ -22,24 +22,21 @@ export const InputCardContainer = ({
 
   const handleSubmit = async () => {
     if (!value.trim()) return;
+
     setLoading(true);
     setError(null);
+    setSuccessMessage(null);
 
-    try {
-      const response = await submitHandler(value);
+    const response = await submitHandler(value);
 
-      if (!response.success) {
-        setError("Something went wrong in the submit request");
-      } else {
-        setSuccessMessage("Value updated successfully");
-        setError("");
-        setValue("");
-      }
-    } catch (err) {
-      setError("Something went wrong");
-    } finally {
-      setLoading(false);
+    if (response.success) {
+      setSuccessMessage(response.message);
+      setValue("");
+    } else {
+      setError(response.message);
     }
+
+    setLoading(false);
   };
 
   return (

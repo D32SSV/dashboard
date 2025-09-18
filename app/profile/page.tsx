@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import Loader from "../components/reusable/Loader";
 import InputCard from "../components/reusable/profile/InputCard";
 import { InputCardContainer } from "../components/reusable/profile/InputCardContainer";
+import { ResetPasswordInput } from "../components/reusable/profile/ResetPasswordInput";
 
 interface ProfileData {
   api: string;
@@ -78,8 +79,8 @@ const Page = () => {
 
   return (
     <ProtectedRoute>
-      <div className="flex flex-col md:flex-row">
-      <div className="p-4 flex flex-col gap-4 md:flex-row ">
+      <div className="lg:mx-48 lg:px-24">
+      <div className="p-4 flex flex-col flex-wrap gap-4 md:gap-8 md:flex-row mt-8 items-center justify-center">
         {Object.entries(profileData).map(([key, value], index) => (
           <ProfileCard
             title={dataMap[key as keyof typeof dataMap]}
@@ -88,7 +89,8 @@ const Page = () => {
           />
         ))}
       </div>
-      <div className="p-4 flex flex-col gap-4 md:flex-row ">
+      <hr className="my-8 mx-2 rounded-2xl border-t-8 border-t-sky-600"/>
+      <div className="p-4 flex flex-col gap-4 md:gap-8 md:flex-col items-center justify-center">
         {Object.entries(dataMap)
           .filter(([key, value]) => key === "callbackUrl")
           .map(([key, value], index) => (
@@ -99,7 +101,9 @@ const Page = () => {
               submitHandler={handleUpdateCallbackUrl}
             />
           ))}
-      </div></div>
+        <ResetPasswordInput />
+      </div>
+      </div>
     </ProtectedRoute>
   );
 };
