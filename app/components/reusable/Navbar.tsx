@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "@/app/context/AuthContext";
 
 const navLinks = [
+  { name: "Home", href: "/dashboard" },
   { name: "Profile", href: "/profile" },
   { name: "Track Transactions", href: "/dashboard/track-txn" },
   { name: "Logout", href: "/" },
@@ -34,7 +35,7 @@ const Navbar: React.FC = () => {
             className="flex-shrink-0 text-xl font-bold text-blue-300"
             onClick={() => setIsOpen(false)}
           >
-            <Link href="/dashboard">Dashboard </Link>
+            <Link href="/dashboard" className="p-2">Dashboard </Link>
             <small className="text-xs">{userName}</small>
           </div>
 
@@ -44,9 +45,9 @@ const Navbar: React.FC = () => {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`hover:text-blue-300 transition-colors ${
+                className={`hover:text-blue-300 transition-colors p-2 rounded ${
                   pathname === link.href
-                    ? "text-blue-300 font-medium"
+                    ? "text-blue-300 font-medium bg-blue-500"
                     : "text-gray-400"
                 }`}
               >

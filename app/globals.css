@@ -52,7 +52,7 @@ input:-webkit-autofill {
 
 @layer base {
   body {
-    @apply bg-blue-800 dark:bg-sdl dark:text-blue-800 text-crypto_violet font-jose;
+    @apply overflow-x-hidden bg-blue-800 dark:bg-sdl dark:text-blue-800 text-crypto_violet font-jose;
   }
 }
 @layer utilities {
@@ -93,5 +93,13 @@ input:-webkit-autofill {
   }
   .btn-hover-effect:hover {
     @apply bg-gray-500 shadow-lg text-black;
+  }
+  .noScroll {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and Edge */
+  }
+
+  .noScroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
   }
 }

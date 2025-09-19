@@ -20,27 +20,28 @@ const TxnTracking = () => {
   };
 
   return (
-    <div className="outer">
-      <div className="flex items-center justify-center mm:absolute gap-8 mt-2 mm:z-[1] bg-gray-800 rounded px-4 pt-1 shadow shadow-gray-500 dark:shadow-violet-300">
-        <label className="cursor-pointer space-x-1">
+    <div className="outer overflow-hidden">
+      <div className="flex items-start justify-center w-full mm:absolute gap-4 md:gap-20 mt-0 mm:z-[1] rounded px-4 py-3 bg-background">
+        <label className="cursor-pointer space-x-1 border-2 border-blue-950 p-2 rounded-lg">
           <input
             type="checkbox"
             checked={isSearchByIdOpen}
             onChange={toggleSearchById}
             className=""
           />
-          <span className="text-md font-normal text-gray-400">
+
+          <span className="text-md font-normal text-gray-400 whitespace-nowrap">
             Search By Id
           </span>
         </label>
-        <label className="cursor-pointer space-x-1">
+        <label className="cursor-pointer space-x-1 border-2 border-blue-950 p-2 rounded-lg">
           <input
             type="checkbox"
             checked={isSearchByFilterOpen}
             onChange={toggleSearchByFilter}
             className=""
           />
-          <span className="text-md font-normal text-gray-400">
+          <span className="text-md font-normal text-gray-400 whitespace-nowrap">
             Search By Filter
           </span>
         </label>
@@ -51,19 +52,19 @@ const TxnTracking = () => {
       isSearchByFilterOpen
         ? "opacity-100 scale-100 pointer-events-auto"
         : "opacity-0 scale-95 pointer-events-none hidden"
-    } shadow
-    shadow-gray-500 dark:shadow-crypto_violet rounded relative top-11`}
+    } 
+   rounded relative top-11`}
       >
-        {/* <SearchByFilter /> */}
+        <SearchByFilter token={token} />
       </div>
       <div
-        className={` mx-1 transition-all duration-300 ease-in-out transform 
+        className={`my-8 mx-1 transition-all duration-300 ease-in-out transform 
     ${
       isSearchByIdOpen
         ? "opacity-100 scale-100 pointer-events-auto"
         : "opacity-0 scale-95 pointer-events-none hidden"
-    } shadow
-    shadow-gray-500 dark:shadow-crypto_violet rounded relative top-11`}
+    } 
+   rounded relative top-11`}
       >
         <SearchById token={token} />
       </div>

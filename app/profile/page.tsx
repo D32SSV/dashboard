@@ -74,35 +74,39 @@ const Page = () => {
 
   const handleUpdateCallbackUrl = async (callbackUrl: string) => {
     const response = await updateCallbackUrl(token, callbackUrl);
+    console.log("UPDATED CBU", response);
+    if (response.success) {
+      setProfileData((prev) => ({ ...prev, callbackUrl: callbackUrl }));
+    }
     return response;
   };
 
   return (
     <ProtectedRoute>
       <div className="lg:mx-48 lg:px-24">
-      <div className="p-4 flex flex-col flex-wrap gap-4 md:gap-8 md:flex-row mt-8 items-center justify-center">
-        {Object.entries(profileData).map(([key, value], index) => (
-          <ProfileCard
-            title={dataMap[key as keyof typeof dataMap]}
-            data={value}
-            key={index}
-          />
-        ))}
-      </div>
-      <hr className="my-8 mx-2 rounded-2xl border-t-8 border-t-sky-600"/>
-      <div className="p-4 flex flex-col gap-4 md:gap-8 md:flex-col items-center justify-center">
-        {Object.entries(dataMap)
-          .filter(([key, value]) => key === "callbackUrl")
-          .map(([key, value], index) => (
-            <InputCardContainer
+        <div className="p-4 flex flex-col flex-wrap gap-4 md:gap-8 md:flex-row mt-8 items-center justify-center">
+          {Object.entries(profileData).map(([key, value], index) => (
+            <ProfileCard
+              title={dataMap[key as keyof typeof dataMap]}
+              data={value}
               key={index}
-              title={"Update " + value}
-              isPassword={key === "password"}
-              submitHandler={handleUpdateCallbackUrl}
             />
           ))}
-        <ResetPasswordInput />
-      </div>
+        </div>
+        <hr className="my-8 mx-2 rounded-2xl border-t-8 border-t-sky-600" />
+        <div className="p-4 flex flex-col gap-4 md:gap-8 md:flex-col items-center justify-center">
+          {Object.entries(dataMap)
+            .filter(([key, value]) => key === "callbackUrl")
+            .map(([key, value], index) => (
+              <InputCardContainer
+                key={index}
+                title={"Update " + value}
+                isPassword={key === "password"}
+                submitHandler={handleUpdateCallbackUrl}
+              />
+            ))}
+          <ResetPasswordInput />
+        </div>
       </div>
     </ProtectedRoute>
   );
